@@ -175,4 +175,8 @@ Generated directories such as `server/target/` and frontend build output are bui
 
 ## License
 
-See [LICENSE](LICENSE).
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for the full license text.
+
+## Author
+
+Created and maintained by [Yogeshwaran M](https://github.com/Yoge-2004).
