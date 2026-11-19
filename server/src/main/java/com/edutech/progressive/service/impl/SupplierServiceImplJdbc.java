@@ -8,7 +8,7 @@ import com.edutech.progressive.entity.Supplier;
 import com.edutech.progressive.service.SupplierService;
 
 public class SupplierServiceImplJdbc implements SupplierService {
-    SupplierDAO supplierDAO;
+    private SupplierDAO supplierDAO;
 
     public SupplierServiceImplJdbc(SupplierDAO supplierDAO) {
         this.supplierDAO = supplierDAO;

@@ -5,8 +5,15 @@ import java.util.List;
 
 import com.edutech.progressive.dao.ProductDAO;
 import com.edutech.progressive.entity.Product;
+import com.edutech.progressive.service.ProductService;
 
-public class ProductServiceImplJdbc implements ProductDAO {
+public class ProductServiceImplJdbc implements ProductService {
+
+  private ProductDAO productDAO;
+
+  public ProductServiceImplJdbc(ProductDAO productDAO) {
+    this.productDAO = productDAO;
+  }
 
     @Override
     public int addProduct(Product product) {
