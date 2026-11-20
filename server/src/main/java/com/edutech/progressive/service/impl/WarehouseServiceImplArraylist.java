@@ -23,10 +23,11 @@ public class WarehouseServiceImplArraylist implements WarehouseService {
 
     @Override
     public List<Warehouse> getWarehousesSortedByCapacity() {
+        List<Warehouse> sortedWarehouseList = new ArrayList<>(warehouseList);
         Comparator<Warehouse> capacityComparator = (w1, w2) -> Integer.compare(w1.getCapacity(), w2.getCapacity());
 
-        warehouseList.sort(capacityComparator);
-        return warehouseList;
+        sortedWarehouseList.sort(capacityComparator);
+        return sortedWarehouseList;
     }
 
     public void emptyArrayList() {

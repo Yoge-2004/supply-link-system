@@ -23,10 +23,10 @@ public class SupplierServiceImplArraylist implements SupplierService {
 
     @Override
     public List<Supplier> getAllSuppliersSortedByName() {     
-
+        List<Supplier> sortedSupplierList = new ArrayList<>(supplierList);
         Comparator<Supplier> supplierName = (s1, s2) -> s1.getSupplierName().compareTo(s2.getSupplierName());
-        supplierList.sort(supplierName);
-        return supplierList;
+        sortedSupplierList.sort(supplierName);
+        return sortedSupplierList;
     }
 
     public void emptyArrayList() {
