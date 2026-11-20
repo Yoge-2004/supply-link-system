@@ -1,6 +1,6 @@
 package com.edutech.progressive.entity;
 
-public class Supplier {
+public class Supplier implements Comparable<Supplier> {
     private int supplierId;
     private String supplierName;
     private String email;
@@ -86,6 +86,11 @@ public class Supplier {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public int compareTo(Supplier o) {
+        return supplierName.compareTo(o.supplierName);
     }
 
     
