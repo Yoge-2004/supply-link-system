@@ -29,5 +29,7 @@ public class SupplierServiceImplArraylist implements SupplierService {
         return result;
     }
 
-    // public emptyArrayList()
+    public void emptyArrayList() {
+        getAllSuppliers().clear();
+    }
 }
