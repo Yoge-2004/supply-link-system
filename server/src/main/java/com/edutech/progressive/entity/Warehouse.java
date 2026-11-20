@@ -60,6 +60,6 @@ public class Warehouse implements Comparable<Warehouse> {
 
     @Override
     public int compareTo(Warehouse o) {
-        return Integer.compare(capacity, o.capacity);
+        return Integer.compare(o.capacity, capacity);
     }
 }

@@ -9,10 +9,11 @@ import com.edutech.progressive.service.SupplierService;
 
 public class SupplierServiceImplArraylist implements SupplierService {
 
+    private static List<Supplier> supplierList = new ArrayList<>();
+
     @Override
     public List<Supplier> getAllSuppliers() {
-        List<Supplier> result = new ArrayList<>();
-        return result;
+        return supplierList;
     }
 
     @Override
@@ -21,15 +22,14 @@ public class SupplierServiceImplArraylist implements SupplierService {
     }
 
     @Override
-    public List<Supplier> getAllSuppliersSortedByName() {
-        List<Supplier> result = new ArrayList<>();
+    public List<Supplier> getAllSuppliersSortedByName() {     
 
         Comparator<Supplier> supplierName = (s1, s2) -> s1.getSupplierName().compareTo(s2.getSupplierName());
-        result.sort(supplierName);
-        return result;
+        supplierList.sort(supplierName);
+        return supplierList;
     }
 
     public void emptyArrayList() {
-        getAllSuppliers().clear();
+        supplierList = new ArrayList<>();
     }
 }

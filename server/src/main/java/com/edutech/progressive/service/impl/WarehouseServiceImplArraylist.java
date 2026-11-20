@@ -9,10 +9,11 @@ import com.edutech.progressive.service.WarehouseService;
 
 public class WarehouseServiceImplArraylist implements WarehouseService {
 
+    private static List<Warehouse> warehouseList = new ArrayList<>();
+
     @Override
     public List<Warehouse> getAllWarehouses() {
-        List<Warehouse> warehouses = new ArrayList<>();
-        return warehouses;
+        return warehouseList;
     }
 
     @Override
@@ -22,16 +23,14 @@ public class WarehouseServiceImplArraylist implements WarehouseService {
 
     @Override
     public List<Warehouse> getWarehousesSortedByCapacity() {
-        List<Warehouse> warehouses = new ArrayList<>();
-
         Comparator<Warehouse> capacityComparator = (w1, w2) -> Integer.compare(w1.getCapacity(), w2.getCapacity());
 
-        warehouses.sort(capacityComparator);
-        return warehouses;
+        warehouseList.sort(capacityComparator);
+        return warehouseList;
     }
 
     public void emptyArrayList() {
-        
+        warehouseList = new ArrayList<>();     
     }
 
 }
