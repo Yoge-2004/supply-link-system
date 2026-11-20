@@ -18,7 +18,8 @@ public class WarehouseServiceImplArraylist implements WarehouseService {
 
     @Override
     public int addWarehouse(Warehouse warehouse) {
-        return -1;
+        warehouseList.add(warehouse);
+        return warehouseList.size();
     }
 
     @Override

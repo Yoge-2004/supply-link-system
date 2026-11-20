@@ -18,7 +18,8 @@ public class SupplierServiceImplArraylist implements SupplierService {
 
     @Override
     public int addSupplier(Supplier supplier) {
-        return -1;
+        supplierList.add(supplier);
+        return supplierList.size();
     }
 
     @Override
