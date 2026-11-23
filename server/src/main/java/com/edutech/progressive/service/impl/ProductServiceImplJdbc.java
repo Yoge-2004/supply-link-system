@@ -1,5 +1,6 @@
 package com.edutech.progressive.service.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,25 +17,25 @@ public class ProductServiceImplJdbc implements ProductService {
   }
 
     @Override
-    public int addProduct(Product product) {
+    public int addProduct(Product product) throws SQLException {
        return -1;
     }
 
     @Override
-    public Product getProductById(int productId) {
+    public Product getProductById(int productId) throws SQLException {
       return null;
     }
 
     @Override
-    public void updateProduct(Product product) {
+    public void updateProduct(Product product) throws SQLException {
     }
 
     @Override
-    public void deleteProduct(int productId) {
+    public void deleteProduct(int productId) throws SQLException {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts() throws SQLException {
         return new ArrayList<>();
     }
 
