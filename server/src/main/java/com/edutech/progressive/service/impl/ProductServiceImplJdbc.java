@@ -18,25 +18,27 @@ public class ProductServiceImplJdbc implements ProductService {
 
     @Override
     public int addProduct(Product product) throws SQLException {
-       return -1;
+       return productDAO.addProduct(product);
     }
 
     @Override
     public Product getProductById(int productId) throws SQLException {
-      return null;
+      return productDAO.getProductById(productId);
     }
 
     @Override
     public void updateProduct(Product product) throws SQLException {
+        productDAO.updateProduct(product);
     }
 
     @Override
     public void deleteProduct(int productId) throws SQLException {
+        productDAO.deleteProduct(productId);
     }
 
     @Override
     public List<Product> getAllProducts() throws SQLException {
-        return new ArrayList<>();
+        return productDAO.getAllProducts();
     }
 
 }

@@ -18,51 +18,120 @@ public class ProductDAOImpl implements ProductDAO {
 
         String queryString = "INSERT INTO product (warehouse_id, product_name, product_description, quantity, price) VALUES(?, ?, ?, ?, ?)";
 
-        PreparedStatement pStatement = connection.prepareStatement(queryString);
+        PreparedStatement pStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
         pStatement.setInt(1, product.getWarehouseId());
         pStatement.setString(2, product.getProductName());
         pStatement.setString(3, product.getProductDescription());
         pStatement.setInt(4, product.getQuantity());
         pStatement.setDouble(5, product.getPrice());
 
-        return pStatement.executeUpdate();
+        pStatement.executeUpdate();
+        ResultSet rs = pStatement.getGeneratedKeys();
+        if (rs.next()) {
+            int generatedId = rs.getInt(1);
+            product.setProductId(generatedId);
+            return generatedId;
+        }
+        return -1;
     }
 
     @Override
     public Product getProductById(int productId) throws SQLException {
         Connection connection = DatabaseConnectionManager.getConnection();
-        String queryString = "SELECT * FROM product WHERE product_id=" + productId;
+        String queryString = "SELECT * FROM product WHERE product_id = ?";
 
-        Statement stmt = connection.createStatement();
+        PreparedStatement pStatement = connection.prepareStatement(queryString);
+        pStatement.setInt(1, productId);
         
-        ResultSet rs = stmt.executeQuery(queryString);
+        ResultSet rs = pStatement.executeQuery();
 
         Product product = null;
 
         if (rs.next()) {
             product = new Product();
-            product.setProductId(rs.getInt(1));
-            product.setWarehouseId(rs.getInt(2));
-            product.setProductName(rs.getString(3));
-            product.setProductDescription(rs.getString(4));
-            product.setQuantity(rs.getInt(5));
-            product.setPrice(rs.getLong(6));
+            product.setProductId(rs.getInt("product_id"));
+            product.setWarehouseId(rs.getInt("warehouse_id"));
+            product.setProductName(rs.getString("product_name"));
+            product.setProductDescription(rs.getString("product_description"));
+            product.setQuantity(rs.getInt("quantity"));
+            product.setPrice(rs.getLong("price"));
         }
         return product;
     }
 
     @Override
     public void updateProduct(Product product) throws SQLException {
-        return;
+        Connection connection = DatabaseConnectionManager.getConnection();
+        String queryString = "UPDATE product SET warehouse_id = ?, product_name = ?, product_description = ?, quantity = ?, price = ? WHERE product_id = ?";
+
+        PreparedStatement pStatement = connection.prepareStatement(queryString);
+        pStatement.setInt(1, product.getWarehouseId());
+        pStatement.setString(2, product.getProductName());
+        pStatement.setString(3, product.getProductDescription());
+        pStatement.setInt(4, product.getQuantity());
+        pStatement.setDouble(5, product.getPrice());
+        pStatement.setInt(6, product.getProductId());
+
+        pStatement.executeUpdate();
     }
 
     @Override
     public void deleteProduct(int productId) throws SQLException {
-        return;
+        Connection connection = DatabaseConnectionManager.getConnection();
+        String queryString = "DELETE FROM product WHERE product_id = ?";
+
+        PreparedStatement pStatement = connection.prepareStatement(queryString);
+        pStatement.setInt(1, productId);
+
+        pStatement.executeUpdate();
     }
 
     @Override
     public List<Product> getAllProducts() throws SQLException {
-        return new ArrayList<>();
+        Connection connection = DatabaseConnectionManager.getConnection();
+        String queryString = "SELECT * FROM product";
+
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(queryString);
+
+        List<Product> products = new ArrayList<>();
+        while (rs.next()) {
+            Product product = new Product();
+            product.setProductId(rs.getInt("product_id"));
+            product.setWarehouseId(rs.getInt("warehouse_id"));
+            product.setProductName(rs.getString("product_name"));
+            product.setProductDescription(rs.getString("product_description"));
+            product.setQuantity(rs.getInt("quantity"));
+            product.setPrice(rs.getLong("price"));
+            products.add(product);
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> getAllProductByWarehouse(int warehouseId) {
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = DatabaseConnectionManager.getConnection();
+            String queryString = "SELECT * FROM product WHERE warehouse_id = ?";
+
+            PreparedStatement pStatement = connection.prepareStatement(queryString);
+            pStatement.setInt(1, warehouseId);
+
+            ResultSet rs = pStatement.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductId(rs.getInt("product_id"));
+                product.setWarehouseId(rs.getInt("warehouse_id"));
+                product.setProductName(rs.getString("product_name"));
+                product.setProductDescription(rs.getString("product_description"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setPrice(rs.getLong("price"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 }

@@ -15,7 +15,7 @@ public class DatabaseConnectionManager {
     static {
         try (InputStream input = DatabaseConnectionManager.class
             .getClassLoader()
-            .getResourceAsStream("application.propeties")
+            .getResourceAsStream("application.properties")
         ) {
             if (input == null) 
                 throw new IllegalStateException("application.properties not found");
