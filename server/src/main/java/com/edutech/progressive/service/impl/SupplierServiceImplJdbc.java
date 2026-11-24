@@ -1,6 +1,8 @@
 package com.edutech.progressive.service.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.edutech.progressive.dao.SupplierDAO;
@@ -15,32 +17,35 @@ public class SupplierServiceImplJdbc implements SupplierService {
     }
 
     @Override
-    public List<Supplier> getAllSuppliers() {
-        List<Supplier> suppliers = new ArrayList<>();
+    public List<Supplier> getAllSuppliers() throws SQLException {
+        return supplierDAO.getAllSuppliers();
+    }
+
+    @Override
+    public int addSupplier(Supplier supplier) throws SQLException {
+        return supplierDAO.addSupplier(supplier);
+    }
+
+    @Override
+    public List<Supplier> getAllSuppliersSortedByName() throws SQLException {
+        List<Supplier> suppliers = new ArrayList<>(supplierDAO.getAllSuppliers());
+        Collections.sort(suppliers);
         return suppliers;
     }
 
     @Override
-    public int addSupplier(Supplier supplier) {
-        return -1;
+    public void updateSupplier(Supplier supplier) throws SQLException {
+        supplierDAO.updateSupplier(supplier);
     }
 
     @Override
-    public List<Supplier> getAllSuppliersSortedByName() {
-        List<Supplier> suppliers = new ArrayList<>();
-        return suppliers;
+    public void deleteSupplier(int supplierId) throws SQLException {
+        supplierDAO.deleteSupplier(supplierId);
     }
 
-    public void updateSupplier(Supplier supplier) {
-
-    }
-
-    public void deleteSupplier(int supplierId) {
-        
-    }
-
-    public Supplier getSupplierById(int supplierId) {
-        return null;
+    @Override
+    public Supplier getSupplierById(int supplierId) throws SQLException {
+        return supplierDAO.getSupplierById(supplierId);
     }
 
 }
